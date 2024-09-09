@@ -28,7 +28,9 @@ router.get('/', (req, res) => {
   router.post('/', (req, res) => {
 
     const { entry, object } = req.body;
-    
+
+    console.log({object})
+
     if (object === 'user') {
       entry.forEach(entry => {
         const changes = entry.changes;
