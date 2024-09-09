@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
   router.post('/', (req, res) => {
 
-    console.log({header:req.header})
+    console.log("SE EJECUTO EL POST");
 
     res.status(200).send('EVENT_RECEIVED');
   });
