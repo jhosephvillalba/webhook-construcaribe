@@ -25,4 +25,24 @@ router.get('/', (req, res) => {
     }
   });
 
+  router.post('/', (req, res) => {
+
+    const { entry, object } = req.body;
+    
+    if (object === 'user') {
+      entry.forEach(entry => {
+        const changes = entry.changes;
+        changes.forEach(change => {
+          console.log('Change detected:');
+          console.log('Field:', change.field);
+          console.log('Verb:', change.value.verb);
+          console.log('Object ID:', change.value.object_id);
+        });
+      });
+    }
+  
+    // Responder a Facebook con un 200 para confirmar que recibimos el evento
+    res.status(200).send('EVENT_RECEIVED');
+  });
+
 module.exports = router; 
