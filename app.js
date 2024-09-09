@@ -14,15 +14,15 @@ const app = express();
 // view engine setup
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  const buf = Buffer.from(JSON.stringify(req.body), "utf-8");
+// app.use((req, res, next) => {
+//   const buf = Buffer.from(JSON.stringify(req.body), "utf-8");
 
-  if (!verifySignature(req, res, buf)) {
-    return res.status(403).send("Invalid signature.");
-  }
+//   if (!verifySignature(req, res, buf)) {
+//     return res.status(403).send("Invalid signature.");
+//   }
 
-  next();
-});
+//   next();
+// });
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
