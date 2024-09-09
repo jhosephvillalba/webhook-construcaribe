@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const { verifySignature } = require("./helper/verify_token");
+const cors = require('cors'); 
+
 
 const indexRouter = require("./routes/index");
 const webhook = require("./routes/webhook");
@@ -12,6 +14,7 @@ const webhook = require("./routes/webhook");
 const app = express();
 
 // view engine setup
+app.use(cors());
 app.use(bodyParser.json());
 
 // app.use((req, res, next) => {

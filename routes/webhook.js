@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     }
   });
 
-  router.post('/leadgen', (req, res) => {
+  router.post('/', (req, res) => {
 
     const { entry, object } = req.body;
 
