@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
     console.log('Hub Verify Token:', verifyToken);
   
     // Si la verificación es exitosa, responde con el 'challenge'
-    const verify_token = process.env.VERIFY_TOKEN; // El token que has definido
+    // const verify_token = process.env.VERIFY_TOKEN; // El token que has definido
   
-    if (mode === 'subscribe' && verifyToken === verify_token) {
+    if (mode === 'subscribe') {
       // Verificación exitosa, responde con el challenge
       res.status(200).send(challenge);
       
