@@ -35,13 +35,68 @@ router.get('/', (req, res) => {
     for (const entry of req.body.entry) {
         for (const change of entry.changes) {
             // Process new lead (leadgen_id)
-            //await processNewLead(change.value.leadgen_id);
-            console.log({lead:change.value.leadgen_id}); 
+            await processNewLead(change.value.leadgen_id);
+            console.log({lead:change.value}); 
         }
     }
 
     // Success
     res.send({ success: true });
 }); 
+
+
+async function processNewLead(leadId) {
+  let response;
+
+  try {
+    // FACEBOOK_PAGE_ACCESS_TOKEN=109000867725441
+      // Get lead details by lead ID from Facebook API
+      response = await axios.get(`https://graph.facebook.com/v9.0/${leadId}/?access_token=${process.env.APP_TOKEN}`);
+  }
+  catch (err) {
+      // Log errors
+      return console.warn(`An invalid response was received from the Facebook API:`, err.response.data ? JSON.stringify(err.response.data) : err.response);
+  }
+
+  // Ensure valid API response returned
+  if (!response.data || (response.data && (response.data.error || !response.data.field_data))) {
+      return console.warn(`An invalid response was received from the Facebook API: ${response}`);
+  }
+
+  // Lead fields
+  const leadForm = [];
+
+  // Extract fields
+  for (const field of response.data.field_data) {
+      // Get field name & value
+      const fieldName = field.name;
+      const fieldValue = field.values[0];
+
+      // Store in lead array
+      leadForm.push(`${fieldName}: ${fieldValue}`);
+  }
+
+  // Implode into string with newlines in between fields
+  const leadInfo = leadForm.join('\n');
+
+  // Log to console
+  console.log('A new lead was received!\n', leadInfo);
+
+  // Use a library like "nodemailer" to notify you about the new lead
+  // 
+  // Send plaintext e-mail with nodemailer
+  // transporter.sendMail({
+  //     from: `Admin <admin@example.com>`,
+  //     to: `You <you@example.com>`,
+  //     subject: 'New Lead: ' + name,
+  //     text: new Buffer(leadInfo),
+  //     headers: { 'X-Entity-Ref-ID': 1 }
+  // }, function (err) {
+  //     if (err) return console.log(err);
+  //     console.log('Message sent successfully.');
+  // });
+  //
+
+}
 
 module.exports = router; 
