@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 // const { verifySignature } = require("./helper/verify_token");
-const xhub = require('express-x-hub');
+// const xhub = require('express-x-hub');
 const cors = require('cors'); 
 
 
@@ -17,7 +17,7 @@ const app = express();
 // view engine setup
 app.use(cors());
 
-app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_TOKEN }));
+//app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_TOKEN }));
 app.use(bodyParser.json());
 
 // app.use((req, res, next) => {
