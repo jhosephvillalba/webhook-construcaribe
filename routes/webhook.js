@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     for (const change of entry.changes) {
       // Process new lead (leadgen_id)
       console.log({id:change.value.leadgen_id}); 
-      
+
       await processNewLead(change.value.leadgen_id);
 
       console.log({ lead: change.value });
@@ -59,14 +59,14 @@ async function processNewLead(leadId) {
     );
   } catch (err) {
     // Log errors
-    return console.warn(
+    return console.log(
       `An invalid response was received from the Facebook API: ${leadId}`
     );
   }
 
   // Ensure valid API response returned
   if (!response.lead) {
-      return console.warn(`An invalid response was received from the Facebook API: ${response}`);
+      return console.log(`An invalid response was received from the Facebook API: ${response}`);
   }
 
   // // Lead fields
