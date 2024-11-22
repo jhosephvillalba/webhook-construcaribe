@@ -18,7 +18,16 @@ const app = express();
 app.use(cors());
 
 //app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_TOKEN }));
+
+
 app.use(bodyParser.json());
+
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // app.use((req, res, next) => {
 //   const buf = Buffer.from(JSON.stringify(req.body), "utf-8");
