@@ -46,6 +46,7 @@ router.get('/', (req, res) => {
 
 
 async function processNewLead(leadId) {
+
   let response;
 
   try {
@@ -59,28 +60,28 @@ async function processNewLead(leadId) {
   }
 
   // Ensure valid API response returned
-  if (!response.data || (response.data && (response.data.error || !response.data.field_data))) {
-      return console.warn(`An invalid response was received from the Facebook API: ${response}`);
-  }
+  // if (!response.data || (response.data && (response.data.error || !response.data.field_data))) {
+  //     return console.warn(`An invalid response was received from the Facebook API: ${response}`);
+  // }
 
-  // Lead fields
-  const leadForm = [];
+  // // Lead fields
+  // const leadForm = [];
 
-  // Extract fields
-  for (const field of response.data.field_data) {
-      // Get field name & value
-      const fieldName = field.name;
-      const fieldValue = field.values[0];
+  // // Extract fields
+  // for (const field of response.data.field_data) {
+  //     // Get field name & value
+  //     const fieldName = field.name;
+  //     const fieldValue = field.values[0];
 
-      // Store in lead array
-      leadForm.push(`${fieldName}: ${fieldValue}`);
-  }
+  //     // Store in lead array
+  //     leadForm.push(`${fieldName}: ${fieldValue}`);
+  // }
 
-  // Implode into string with newlines in between fields
-  const leadInfo = leadForm.join('\n');
+  // // Implode into string with newlines in between fields
+  // const leadInfo = leadForm.join('\n');
 
   // Log to console
-  console.log('A new lead was received!\n', leadInfo);
+  console.log({ data: response });
 
   // Use a library like "nodemailer" to notify you about the new lead
   // 
